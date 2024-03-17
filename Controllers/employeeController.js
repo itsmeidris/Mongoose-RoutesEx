@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+const employeeSchema = require('../Models/employeeModel');
+const Employee = mongoose.model('employees' ,employeeSchema);
+
 // Function to retrieve all employees
 const getAllEmployees = async (req, res) => {
     try {
@@ -38,7 +42,12 @@ const createEmployee = async (req, res) => {
         // Extract employee data from request body
         const { id, name, jobTitle, salary } = req.body;
         // Create a new employee instance
-        const newEmployee = new Employee({ id, name, jobTitle, salary });
+        const newEmployee = new Employee({ 
+            id, 
+            name, 
+            jobTitle, 
+            salary 
+        });
 
         if (newEmployee) {
             // Save the new employee to the database
@@ -59,7 +68,7 @@ const createEmployee = async (req, res) => {
 const updateEmployee = async (req, res) => {
     try {
         // Extract employee ID from request parameters
-        const empId = req.params.id;
+        const empId = parseInt(req.params.id);
         // Extract updated employee data from request body
         const { id, name, jobTitle, salary } = req.body;
 
@@ -89,7 +98,7 @@ const deleteEmployee = async (req, res) => {
         // Extract employee ID from request parameters
         const empId = req.params.id;
         // Find and delete the employee from the database
-        const deletedEmployee = await Employee.findOneAndDelete({ id: empId });
+        const deletedEmployee = await Employee.deleteOne({ id: empId });
 
         if (deletedEmployee) {
             // Send a success response with the deleted employee
