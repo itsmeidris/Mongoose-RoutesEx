@@ -1,8 +1,8 @@
 // Importing mongoose's Schema class
-const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
 
 // Defining the schema for employees
-const employeeSchema = new Schema({
+const employeeSchema = new mongoose.Schema({
     // Schema field for employee ID
     id: { type: Number, required: true },
     // Schema field for employee name
@@ -13,5 +13,8 @@ const employeeSchema = new Schema({
     salary: { type: Number, required: true },
 });
 
+const Employee =  mongoose.model('Employee' ,employeeSchema);
+
+
 // Exporting the employee schema
-module.exports = employeeSchema;
+module.exports = Employee;
